@@ -4,12 +4,25 @@ var matrice = new Array();
 matrice[0] = new Array();
 matrice[1] = new Array();
 matrice[2] = new Array();
+initMatrice();
 
-for(int i=0; i<3; i++)
+const socket = io();
+
+const urlParams = new URLSearchParams(window.location.search);
+const nickname = urlParams.get('nickname');
+
+
+// Join game
+socket.emit('join', {nickname});
+
+function initMatrice()
 {
-	for(int c=0; c<3; c++)
+	for(var i=0; (i<3); i++)
 	{
-		matrice[i][c] = N;	
+		for(var c=0; c<3; c++)
+		{
+			matrice[i][c] = 'N';	
+		}
 	}
 }
 
@@ -17,24 +30,16 @@ function nuovaPartita()
 {
 	partita_in_corso = 1;
 	turno = 0
-	document.images[0].src = "./quadrato-bianco.jpg"
-	document.images[2].src = "./quadrato-bianco.jpg"
-	document.images[4].src = "./quadrato-bianco.jpg"
-	document.images[8].src = "./quadrato-bianco.jpg"
-	document.images[10].src = "./quadrato-bianco.jpg"
-	document.images[12].src = "./quadrato-bianco.jpg"
-	document.images[16].src = "./quadrato-bianco.jpg"
-	document.images[18].src = "./quadrato-bianco.jpg"
-	document.images[20].src = "./quadrato-bianco.jpg"
-	matrice[0][0] = null
-	matrice[0][1] = null
-	matrice[0][2] = null
-	matrice[1][0] = null
-	matrice[1][1] = null
-	matrice[1][2] = null
-	matrice[2][0] = null
-	matrice[2][1] = null
-	matrice[2][2] = null
+	document.images[0].src = "./../images/quadrato-bianco.jpg"
+	document.images[2].src = "./../images/quadrato-bianco.jpg"
+	document.images[4].src = "./../images/quadrato-bianco.jpg"
+	document.images[8].src = "./../images/quadrato-bianco.jpg"
+	document.images[10].src = "./../images/quadrato-bianco.jpg"
+	document.images[12].src = "./../images/quadrato-bianco.jpg"
+	document.images[16].src = "./../images/quadrato-bianco.jpg"
+	document.images[18].src = "./../images/quadrato-bianco.jpg"
+	document.images[20].src = "./../images/quadrato-bianco.jpg"
+	initMatrice();
 	nascondiFinestraRisultato()
 }
 
