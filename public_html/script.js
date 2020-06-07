@@ -10,6 +10,7 @@ const socket = io();
 
 const urlParams = new URLSearchParams(window.location.search);
 const nickname = urlParams.get('nickname');
+console.log(nickname);
 
 
 // Join game
