@@ -4,10 +4,10 @@ const http      = require('http');
 const socketio  = require('socket.io');
 
 // Requires internal modules
-const joinUser          = require('./utils/users.js').joinUser;
-const leaveUser         = require('./utils/users.js').leaveUser;
-const getUserById       = require('./utils/users.js').getUserById;
-const getUsersByRoom    = require('./utils/users.js').getUsersByRoom;
+const joinUser          = require('./js/users.js').joinUser;
+const leaveUser         = require('./js/users.js').leaveUser;
+const getUserById       = require('./js/users.js').getUserById;
+const getUsersByRoom    = require('./js/users.js').getUsersByRoom;
 
 
 const app       = express();
