@@ -1,3 +1,15 @@
+const socket = io();
+
+const urlParams = new URLSearchParams(window.location.search)
+const nickname = urlParams.get('nickname')
+
+
+// Join game
+socket.emit('join', {nickname})
+
+
+// gestione animazioni e controllo gioco
+
 var turno = 0;
 var partita_in_corso = 1;
 var matrice = new Array();
@@ -6,15 +18,6 @@ matrice[1] = new Array();
 matrice[2] = new Array();
 initMatrice();
 
-const socket = io();
-
-const urlParams = new URLSearchParams(window.location.search);
-const nickname = urlParams.get('nickname');
-console.log(nickname);
-
-
-// Join game
-socket.emit('join', {nickname});
 
 function initMatrice()
 {
