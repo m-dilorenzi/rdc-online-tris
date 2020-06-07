@@ -14,7 +14,7 @@ const app       = express();
 const server    = http.createServer(app);
 const io        = socketio(server);
 
-const PORT      = 8080;
+const PORT      = process.env.PORT || 8080;
 const listener  = server.listen(PORT, () =>
     console.log(`The server is listening on port: ${listener.address().port}`)
 );
@@ -59,7 +59,7 @@ io.on('connection', socket => {
             io.to(user.room).emit('message', createMessage(bot, `${user.username} has disconnected.`));
             console.log(`${user.username} has disconnected.`);
         }
-    });
     */
+    });
 });
 
