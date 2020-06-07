@@ -5,6 +5,13 @@ matrice[0] = new Array();
 matrice[1] = new Array();
 matrice[2] = new Array();
 
+for(int i=0; i<3; i++)
+{
+	for(int c=0; c<3; c++)
+	{
+		matrice[i][c] = N;	
+	}
+}
 
 function nuovaPartita()
 {
@@ -44,16 +51,16 @@ function assegna(riga,colonna)
 	if(partita_in_corso == 1){
 		if(riga==0 & colonna==0)
 		{
-			if(document.images[0].src == "./quadrato-bianco.jpg")
+			if(matrice[0][0] == 'N')
 			{
 				if(turno%2==0)
 				{
-					document.images[0].src="x.png"
+					document.images[0].src="./../images/x.png"
 					matrice[0][0] = "X"
 				}
 				else
 				{
-					document.images[0].src="o.png"
+					document.images[0].src="./../images/o.png"
 					matrice[0][0] = "O"
 				}
 				turno=turno+1
@@ -62,16 +69,16 @@ function assegna(riga,colonna)
 			
 		if(riga==0 & colonna==2)
 		{
-			if(document.images[2].src == "./quadrato-bianco.jpg")
+			if(matrice[0][1] == 'N')
 			{
 				if(turno%2==0)
 				{
-					document.images[2].src="x.png"
+					document.images[2].src="./../images/x.png"
 					matrice[0][1] = "X"
 				}
 				else
 				{
-					document.images[2].src="o.png"
+					document.images[2].src="./../images/o.png"
 					matrice[0][1] = "O"
 				}
 				turno=turno+1
@@ -80,16 +87,16 @@ function assegna(riga,colonna)
 				
 		if(riga==0 & colonna==4)
 		{
-			if(document.images[4].src == "./quadrato-bianco.jpg")
+			if(matrice[0][2] == 'N')
 			{
 				if(turno%2==0)
 				{
-					document.images[4].src="x.png"
+					document.images[4].src="./../images/x.png"
 					matrice[0][2] = "X"
 				}
 				else
 				{
-					document.images[4].src="o.png"
+					document.images[4].src="./../images/o.png"
 					matrice[0][2] = "O"
 				}
 				turno=turno+1
@@ -98,16 +105,16 @@ function assegna(riga,colonna)
 		
 		if(riga==2 & colonna==0)
 		{
-			if(document.images[8].src == "./quadrato-bianco.jpg")
+			if(matrice[1][0] == 'N')
 			{
 				if(turno%2==0)
 				{
-					document.images[8].src="x.png"
+					document.images[8].src="./../images/x.png"
 					matrice[1][0] = "X"
 				}
 				else
 				{
-					document.images[8].src="o.png"
+					document.images[8].src="./../images/o.png"
 					matrice[1][0] = "O"
 				}
 				turno=turno+1
@@ -116,16 +123,16 @@ function assegna(riga,colonna)
 		
 		if(riga==2 & colonna==2)
 		{
-			if(document.images[10].src == "./quadrato-bianco.jpg")
+			if(matrice[1][1] == 'N')
 			{
 				if(turno%2==0)
 				{
-					document.images[10].src="x.png"
+					document.images[10].src="./../images/x.png"
 					matrice[1][1] = "X"
 				}
 				else
 				{
-					document.images[10].src="o.png"
+					document.images[10].src="./../images/o.png"
 					matrice[1][1] = "O"
 				}
 				turno=turno+1
@@ -134,16 +141,16 @@ function assegna(riga,colonna)
 		
 		if(riga==2 & colonna==4)
 		{	
-			if(document.images[12].src == "./quadrato-bianco.jpg")
+			if(matrice[1][2] == 'N')
 			{
 				if(turno%2==0)
 				{
-					document.images[12].src="x.png"
+					document.images[12].src="./../images/x.png"
 					matrice[1][2] = "X"
 				}
 				else
 				{
-					document.images[12].src="o.png"
+					document.images[12].src="./../images/o.png"
 					matrice[1][2] = "O"
 				}
 				turno=turno+1
@@ -152,16 +159,16 @@ function assegna(riga,colonna)
 		
 		if(riga==4 & colonna==0)
 		{
-			if(document.images[16].src == "./quadrato-bianco.jpg")
+			if(matrice[2][0] == 'N')
 			{
 				if(turno%2==0)
 				{
-					document.images[16].src="x.png"
+					document.images[16].src="./../images/x.png"
 					matrice[2][0] = "X"
 				}
 				else
 				{
-					document.images[16].src="o.png"
+					document.images[16].src="./../images/o.png"
 					matrice[2][0] = "O"
 				}
 				turno=turno+1
@@ -170,16 +177,16 @@ function assegna(riga,colonna)
 		
 		if(riga==4 & colonna==2)
 		{
-			if(document.images[18].src == "./quadrato-bianco.jpg")
+			if(matrice[2][1] == 'N')
 			{
 				if(turno%2==0)
 				{
-					document.images[18].src="x.png"
+					document.images[18].src="./../images/x.png"
 					matrice[2][1] = "X"
 				}
 				else
 				{
-					document.images[18].src="o.png"
+					document.images[18].src="./../images/o.png"
 					matrice[2][1] = "O"
 				}
 				turno=turno+1
@@ -188,16 +195,16 @@ function assegna(riga,colonna)
 		
 		if(riga==4 & colonna==4)
 		{
-			if(document.images[20].src == "./quadrato-bianco.jpg")
+			if(matrice[2][2] == 'N')
 			{
 				if(turno%2==0)
 				{
-					document.images[20].src="x.png"
+					document.images[20].src="./../images/x.png"
 					matrice[2][2] = "X"
 				}
 				else
 				{
-					document.images[20].src="o.png"
+					document.images[20].src="./../images/o.png"
 					matrice[2][2] = "O"
 				}
 				turno=turno+1
