@@ -1,13 +1,6 @@
 // Array of connected users
 var users = [];
 
-// Push user in chat room when join
-function joinUser(id, username, room) {
-    const user = {id, username, room};
-    users.push(user);
-    return user;
-}
-
 // Remove user when leave the chat
 function leaveUser(id) {
     // Get the index of the user to remove
@@ -24,8 +17,8 @@ function leaveUser(id) {
 }
 
 // Push user in chat room when join
-function joinUser(id, username, room) {
-    const user = {id, username, room};
+function joinUser(id, nickname, room) {
+    const user = {id, nickname, room};
     users.push(user);
     return user;
 }
@@ -35,13 +28,12 @@ function getUserById(id) {
     return users.find(user => user.id == id);
 }
 
-// Get all users in a room
-function getUsersByRoom(room) {
-    // Get new array with the elements that passed the test.
-    return users.filter(user => user.room == room);
+// Get user index
+function getUserIndex(id) {
+    return users.findIndex(user => user.id == id);
 }
 
 exports.joinUser        = joinUser;
 exports.getUserById     = getUserById;
 exports.leaveUser       = leaveUser;
-exports.getUsersByRoom  = getUsersByRoom;
+exports.getUserIndex    = getUserIndex;

@@ -3,20 +3,22 @@
 <html>
 
 	<head>
-		<script type="text/javascript" src="script.js"></script>
+		<!-- <script type="text/javascript" src="script.js"></script> -->
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<title>Tris</title>
+		<script src="/socket.io/socket.io.js"></script>
+        <script src="script.js"></script>
 	</head>
 
 	<body>
 		<div id="sinistra">
 			<table id="tris">
 					<tr>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="assegna(0,0)" value="run external javascript"/></td>
+						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(0,0)" /></td>
 						<td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="assegna(0,2)" value="run external javascript"/></td>
+						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(0,2)" /></td>
 						<td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="assegna(0,4)" value="run external javascript"/></td>
+						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(0,4)" /></td>
 					</tr>
 					<tr>
 						<td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
@@ -26,11 +28,11 @@
 						<td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
 					</tr>
 					<tr>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="assegna(2,0)" value="run external javascript"/></td>
+						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(2,0)" value="run external javascript"/></td>
 						<td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="assegna(2,2)" value="run external javascript"/></td>
+						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(2,2)" value="run external javascript"/></td>
 						<td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="assegna(2,4)" value="run external javascript"/></td>
+						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(2,4)" value="run external javascript"/></td>
 					</tr>
 					<tr>
 						<td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
@@ -40,11 +42,11 @@
 						<td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
 					</tr>
 					<tr>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="assegna(4,0)" value="run external javascript"/></td>
+						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(4,0)" value="run external javascript"/></td>
 						<td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="assegna(4,2)" value="run external javascript"/></td>
+						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(4,2)" value="run external javascript"/></td>
 						<td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="assegna(4,4)" value="run external javascript"/></td>
+						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(4,4)" value="run external javascript"/></td>
 					</tr>
 					
 				</table>
@@ -68,7 +70,6 @@
 			<br>
 		</div>
 
-		<script src="/socket.io/socket.io.js"></script>
-        <script src="./script.js"></script>
+		
 	</body>
 </html>
