@@ -47,15 +47,21 @@ io.on('connection', socket => {
             console.log(nickname+' join '+currentRoom);
             if(io.nsps['/'].adapter.rooms[currentRoom].length != 2)
             {
-                var message = "Waiting to find your opponent..";
-                socket.emit('information', message);
+                // alone in the room, waiting for opponent
+                var informationMessage = "Waiting to find your opponent..";
+                socket.emit('information', informationMessage);
             }else{
+                // opponent arrives, now the game can start
+
+                // send startGame signal to the player
                 var opponent = usersArray[(usersArray.length-2)]
                 var message = "Game started! Your opponent is "+opponent;
-                var startSignal = {message: message, tplayer: 2};
+                var startSignal = {message: message, tplayer: 2, nickname: nickname, opponent: opponent};
                 socket.emit('startGame', startSignal);
+
+                // send startGame signal to the opponent
                 message = "Game started! Your opponent is "+nickname;
-                startSignal = {message: message, tplayer: 1};
+                startSignal = {message: message, tplayer: 1, nickname: opponent, opponent: nickname};
                 socket.broadcast.to(currentRoom).emit('startGame', startSignal);
             }
 
@@ -70,15 +76,21 @@ io.on('connection', socket => {
             console.log(nickname+' join '+currentRoom);
             if(io.nsps['/'].adapter.rooms[currentRoom].length != 2)
             {
-                var message = "Waiting to find your opponent..";
-                socket.emit('information', message);
+                // alone in the room, waiting for opponent
+                var informationMessage = "Waiting to find your opponent..";
+                socket.emit('information', informationMessage);
             }else{
+                // opponent arrives, now the game can start
+
+                // send startGame signal to the player
                 var opponent = usersArray[(usersArray.length-2)]
                 var message = "Game started! Your opponent is "+opponent;
-                var startSignal = {message: message, tplayer: 2};
+                var startSignal = {message: message, tplayer: 2, nickname: nickname, opponent: opponent};
                 socket.emit('startGame', startSignal);
+                
+                // send startGame signal to the opponent
                 message = "Game started! Your opponent is "+nickname;
-                startSignal = {message: message, tplayer: 1};
+                startSignal = {message: message, tplayer: 1, nickname: opponent, opponent: nickname};
                 socket.broadcast.to(currentRoom).emit('startGame', startSignal);
             }
         }

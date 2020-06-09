@@ -10,23 +10,37 @@ var trisTable = new Array();
 trisTable[0] = new Array();
 trisTable[1] = new Array();
 trisTable[2] = new Array();
+var playerNickname;
+var opponentNickname;
+
 initTrisTable();
 
 // Join game
 socket.emit('join', {nickname})
 
-socket.on('information', message => {
-	// Add the new message on the screen
-	document.getElementById('pareggio').style.display = "block";
-	document.getElementById('pareggio').textContent = message;
+socket.on('information', informationMessage => {
+	// show and set the information label
+	document.getElementById('informationLabel').style.display = "block";
+	document.getElementById('informationLabel').textContent = informationMessage;
 });
 
 socket.on('startGame', (startSignal) => {
+	
 	// Add the new message on the screen
-	document.getElementById('pareggio').style.display = "block";
-	document.getElementById('pareggio').textContent = startSignal.message;
+	document.getElementById('informationLabel').style.display = "block";
+	document.getElementById('informationLabel').textContent = startSignal.message; 
+
+	// show and set the nickname value
+	document.getElementById('nicknameLabel').style.display = "block";
+	document.getElementById('nicknameLabel').textContent = startSignal.nickname + " - Player "+startSignal.tplayer;
+
 	game_started = 1;
 	player = startSignal.tplayer;
+	playerNickname = startSignal.nickname;
+	opponentNickname = startSignal.opponent;
+
+	updateTurnLabel();
+
 });
 
 socket.on('updateTris', (cell) => {
@@ -134,10 +148,26 @@ socket.on('updateTris', (cell) => {
 			break;
 		}
 	turn++;
+	updateTurnLabel();
 });
 
 
-// maaging game animation (HTML)
+// managing game animation (HTML)
+
+function updateTurnLabel()
+{
+	document.getElementById('turnLabel').style.display = "block";
+	if(turn % 2 == 0 & player == 1)
+		document.getElementById('turnLabel').textContent = "Let's go "+ playerNickname + ", it's your turn!";
+	else if(turn % 2 == 0 & player == 2)	
+		document.getElementById('turnLabel').textContent = "Wait for "+ opponentNickname+"'s move!";
+	else if(turn % 2 != 0 & player == 2)
+		document.getElementById('turnLabel').textContent = "Let's go "+ playerNickname + ", it's your turn!";
+	else if(turn % 2 != 0 & player == 1)
+		document.getElementById('turnLabel').textContent = "Wait for "+ opponentNickname+"'s move!";
+	
+}
+
 
 function initTrisTable()
 {
@@ -164,15 +194,6 @@ function newGame()
 	document.images[18].src = "./../images/quadrato-bianco.jpg"
 	document.images[20].src = "./../images/quadrato-bianco.jpg"
 	initTrisTable();
-	nascondiFinestraRisultato()
-}
-
-function nascondiFinestraRisultato()
-{
-	document.getElementById('pareggio').style.display = "none"
-	document.getElementById('giocatore1').style.display = "none"
-	document.getElementById('giocatore2').style.display = "none"
-	document.getElementById('bottoneNuovaPartita').style.display = "none"
 }
 
 function makeMove(row, column)
@@ -189,6 +210,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 0};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}	
 				
@@ -201,7 +223,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 1};
 					socket.emit('moveDone', move);
 					turn++;
-					
+					updateTurnLabel();
 				}
 			}
 					
@@ -215,6 +237,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 2};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 			
@@ -227,6 +250,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 3};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 			
@@ -239,6 +263,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 4};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 			
@@ -251,6 +276,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 5};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 			
@@ -263,6 +289,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 6};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 			
@@ -275,6 +302,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 7};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 			
@@ -287,6 +315,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 8};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 		}
@@ -302,6 +331,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 0};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}	
 				
@@ -314,6 +344,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 1};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 					
@@ -326,6 +357,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 2};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 			
@@ -338,6 +370,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 3};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 			
@@ -350,6 +383,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 4};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 			
@@ -362,6 +396,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 5};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 			
@@ -374,6 +409,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 6};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 			
@@ -386,6 +422,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 7};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 			
@@ -398,6 +435,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 8};
 					socket.emit('moveDone', move);
 					turn++;
+					updateTurnLabel();
 				}
 			}
 		}	
@@ -408,7 +446,7 @@ function mostraFinestraRisultato(vincitore)
 {
 	game_started = 0;
 	if(vincitore == 0)
-		document.getElementById('pareggio').style.display = "block";
+		document.getElementById('information').style.display = "block";
 	else
 	{
 		if(vincitore == 1)

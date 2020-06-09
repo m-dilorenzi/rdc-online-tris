@@ -3,7 +3,14 @@
 <html>
 
 	<head>
-		<!-- <script type="text/javascript" src="script.js"></script> -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>rdc-online-tris</title>
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+       
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<title>Tris</title>
 		<script src="/socket.io/socket.io.js"></script>
@@ -11,65 +18,61 @@
 	</head>
 
 	<body>
-		<div id="sinistra">
-			<table id="tris">
-					<tr>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(0,0)" /></td>
-						<td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(0,2)" /></td>
-						<td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(0,4)" /></td>
-					</tr>
-					<tr>
-						<td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
-						<td>  </td>
-						<td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
-						<td>  </td>
-						<td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
-					</tr>
-					<tr>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(2,0)" value="run external javascript"/></td>
-						<td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(2,2)" value="run external javascript"/></td>
-						<td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(2,4)" value="run external javascript"/></td>
-					</tr>
-					<tr>
-						<td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
-						<td>  </td>
-						<td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
-						<td>  </td>
-						<td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
-					</tr>
-					<tr>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(4,0)" value="run external javascript"/></td>
-						<td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(4,2)" value="run external javascript"/></td>
-						<td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
-						<td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(4,4)" value="run external javascript"/></td>
-					</tr>
-					
-				</table>
-		</div>	
-		<div id="destra">
-			<br>
-			<div id="pareggio" align="center">
-				<h2>Partita finita con un pareggio!</h2>
-			</div>
-			<br>
-			<div id="giocatore1" align="center">
-				<h2>Partita finita, vince giocatore 1!</h2>
-			</div>
-			<br>
-			<div id="giocatore2" align="center">
-				<h2>Partita finita, vince giocatore 2!</h2>
-			</div>
-			<div align="center">
-				<button id="bottoneNuovaPartita" onClick="nuovaPartita()" value="run external javascript">Nuova partita!</a>
-			</div>
-			<br>
-		</div>
+        <div class="container-fluid" style="min-height: 100vh">
+            <div class="row" style="background-color: gold; min-height: 100vh">
+                <div class="col-xs-6 col-sm-6" style="background-color: purple">
+                    <div class="row align-items-center h-100">
+                        <table align="center">
+                            <tr>
+                                <td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(0,0)" /></td>
+                                <td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
+                                <td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(0,2)" /></td>
+                                <td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
+                                <td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(0,4)" /></td>
+                            </tr>
+                            <tr>
+                                <td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
+                                <td>  </td>
+                                <td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
+                                <td>  </td>
+                                <td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
+                            </tr>
+                            <tr>
+                                <td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(2,0)" value="run external javascript"/></td>
+                                <td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
+                                <td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(2,2)" value="run external javascript"/></td>
+                                <td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
+                                <td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(2,4)" value="run external javascript"/></td>
+                            </tr>
+                            <tr>
+                                <td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
+                                <td>  </td>
+                                <td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
+                                <td>  </td>
+                                <td><img src="./../images/linea-divisoria-or.png" width="128" height="10"</tr>
+                            </tr>
+                            <tr>
+                                <td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(4,0)" value="run external javascript"/></td>
+                                <td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
+                                <td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(4,2)" value="run external javascript"/></td>
+                                <td><img src="./../images/linea-divisoria-ve.png" width="10" height="128" /></td>
+                                <td><img src="./../images/quadrato-bianco.jpg" width="128" height="128" onClick="makeMove(4,4)" value="run external javascript"/></td>
+                            </tr>
+                        </table>   
+                    </div>                 
+                </div>
+                <div class="col-xs-6 col-sm-6">
+                    <div class="row w-100 h-25" id="nicknameLabel" style="background-color: pink"></div>
+                    <div class="row w-100 h-25" id="informationLabel" style="background-color: blue"></div>
+                    <div class="row w-100 h-25" id="turnLabel"style="background-color: green"></div>
+                    <div class="row w-100 h-25" style="background-color: darkorange"></div>
 
-		
+                </div>
+            </div>
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	</body>
 </html>
