@@ -101,10 +101,29 @@ io.on('connection', socket => {
     // notify to the other player of the room which
     // cell has to be updated
     socket.on('moveDone', (move) => {
-        // console.log("Cell "+move.cell+" selected by "+move.nickname);
         var user = getUserById(socket.id);
         socket.broadcast.to(user.room).emit('updateTris', move.cell);
     });
+
+    // endpoint used when the player who made
+    // last move win the game or the game ended
+    // in a draw
+    socket.on('result', (result) => {
+        if(result.result == 0)
+        {
+            // draw
+            socket.emit('showResult', "Game ended with draw!");
+            var user = getUserById(socket.id);
+            socket.broadcast.to(user.room).emit('showResult', "Game ended with draw!");
+        }else
+        {
+            // player 1 or player 2 win
+            socket.emit('showResult', result.nickname+", you win!");
+            var user = getUserById(socket.id);
+            socket.broadcast.to(user.room).emit('showResult', "Game ended. "+result.nickname+" win!");
+        }
+    });
+
 
 });
 

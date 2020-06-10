@@ -1,48 +1,66 @@
 const socket = io()
 
-const urlParams = new URLSearchParams(window.location.search)
-const nickname = urlParams.get('nickname')
+const urlParams = new URLSearchParams(window.location.search);
+const nickname = urlParams.get('nickname');
 
-var turn = 0;
-var game_started = 0;
-var player = 0;
-var trisTable = new Array();
-trisTable[0] = new Array();
-trisTable[1] = new Array();
-trisTable[2] = new Array();
-var playerNickname;
-var opponentNickname;
+var turn,
+	game_started,
+	player,
+	playerNickname,
+	opponentNickname,
+	trisTable;
 
-initTrisTable();
+initGame();
 
-// Join game
+// Used to inizialize the variable used to 
+// manage the game. Used every time a player
+// make the login to the game.
+function initGame()
+{
+	
+	turn = 0;
+	game_started = 0;
+	player = 0;
+	trisTable = new Array();
+	trisTable[0] = new Array();
+	trisTable[1] = new Array();
+	trisTable[2] = new Array();
+	initTrisTable();
+}
+
+// Used when a new user make the login with his nickname
 socket.emit('join', {nickname})
 
+// Used when one opponent is alone in the room
 socket.on('information', informationMessage => {
 	// show and set the information label
-	document.getElementById('informationLabel').style.display = "block";
+	// document.getElementById('informationLabel').style.display = "block";
 	document.getElementById('informationLabel').textContent = informationMessage;
 });
 
+// Used when in the room there are 2 player so the
+// game can start
 socket.on('startGame', (startSignal) => {
 	
-	// Add the new message on the screen
-	document.getElementById('informationLabel').style.display = "block";
+	// Update the informationLabel with the name of the opponent
 	document.getElementById('informationLabel').textContent = startSignal.message; 
 
-	// show and set the nickname value
-	document.getElementById('nicknameLabel').style.display = "block";
+	// Set the nicknameLabel value with the nickname of the player
+	// and his number (player 1 will make the first move)
 	document.getElementById('nicknameLabel').textContent = startSignal.nickname + " - Player "+startSignal.tplayer;
 
+	// Set values to manage the game  
 	game_started = 1;
 	player = startSignal.tplayer;
 	playerNickname = startSignal.nickname;
 	opponentNickname = startSignal.opponent;
 
+	// Update the turn label 
 	updateTurnLabel();
 
 });
 
+// Used to update the tris tabe with the opponent last move
 socket.on('updateTris', (cell) => {
 	switch(cell){
 		case 0:
@@ -151,12 +169,19 @@ socket.on('updateTris', (cell) => {
 	updateTurnLabel();
 });
 
+// Used to show the result when the game is ended
+socket.on('showResult', (result) => {
+	// game is ended
+	game_started = 0;
+	document.getElementById('informationLabel').textContent = result;
+	document.getElementById('turnLabel').textContent = "";
+});
+
 
 // managing game animation (HTML)
 
 function updateTurnLabel()
 {
-	document.getElementById('turnLabel').style.display = "block";
 	if(turn % 2 == 0 & player == 1)
 		document.getElementById('turnLabel').textContent = "Let's go "+ playerNickname + ", it's your turn!";
 	else if(turn % 2 == 0 & player == 2)	
@@ -164,8 +189,7 @@ function updateTurnLabel()
 	else if(turn % 2 != 0 & player == 2)
 		document.getElementById('turnLabel').textContent = "Let's go "+ playerNickname + ", it's your turn!";
 	else if(turn % 2 != 0 & player == 1)
-		document.getElementById('turnLabel').textContent = "Wait for "+ opponentNickname+"'s move!";
-	
+		document.getElementById('turnLabel').textContent = "Wait for "+ opponentNickname+"'s move!";	
 }
 
 
@@ -210,7 +234,8 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 0};
 					socket.emit('moveDone', move);
 					turn++;
-					updateTurnLabel();
+					if(checkVictoryCondition() == 0)
+						updateTurnLabel();
 				}
 			}	
 				
@@ -440,21 +465,23 @@ function makeMove(row, column)
 			}
 		}	
 	}
-}
 
-function mostraFinestraRisultato(vincitore)
-{
-	game_started = 0;
-	if(vincitore == 0)
-		document.getElementById('information').style.display = "block";
-	else
+	// game ended with draw
+	if(checkVictoryCondition() == 0 & turn == 9)
 	{
-		if(vincitore == 1)
-			document.getElementById('giocatore1').style.display = "block";
-		else
-			document.getElementById('giocatore2').style.display = "block";
+		socket.emit('result', {nickname: nickname, result: 0});
 	}
-	document.getElementById('bottoneNuovaPartita').style.display = "block";
+	// player 1 win
+	if(checkVictoryCondition() == 1 & player == 1)
+	{
+		socket.emit('result', {nickname: nickname, result: 1});
+	}
+	// player 2 win
+	if(checkVictoryCondition() == 2 & player == 2)
+	{
+		socket.emit('result', {nickname: nickname, result: 2});
+	}
+		
 }
 
 function checkVictoryCondition()
@@ -548,7 +575,7 @@ function checkVictoryCondition()
 	{
 		winner = 2;
 	}
-	
+
 	return winner;
 }
 
