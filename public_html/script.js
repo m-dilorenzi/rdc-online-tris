@@ -1,4 +1,4 @@
-const socket = io()
+const socket = io();
 
 const urlParams = new URLSearchParams(window.location.search);
 const nickname = urlParams.get('nickname');
@@ -60,7 +60,7 @@ socket.on('startGame', (startSignal) => {
 
 });
 
-// Used to update the tris tabe with the opponent last move
+// Used to update the tris table with the opponent last move
 socket.on('updateTris', (cell) => {
 	switch(cell){
 		case 0:
@@ -175,10 +175,14 @@ socket.on('showResult', (result) => {
 	game_started = 0;
 	document.getElementById('informationLabel').textContent = result;
 	document.getElementById('turnLabel').textContent = "";
+
+	// show the new game button
+	$("#newGameButton").removeClass('invisible').addClass('visible');
 });
 
 
 // managing game animation (HTML)
+
 
 function updateTurnLabel()
 {

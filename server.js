@@ -5,7 +5,7 @@ const socketio  = require('socket.io');
 
 // Requires internal modules
 const joinUser          = require('./users.js').joinUser;
-const leaveUser         = require('./users.js').leaveUser;
+const deleteUser        = require('./users.js').deleteUser;
 const getUserById       = require('./users.js').getUserById;
 
 const app       = express();
@@ -29,7 +29,7 @@ io.on('connection', socket => {
     // endpoint used when a new make a connection
     // to the webserver
     socket.on('join', ({nickname}) => {
-        console.log(`${nickname} joins game.`);
+        console.log("[+] --> "+nickname+" joins game.");
         usersArray.push(nickname);
         
         // check how many users are connected to verify
@@ -44,7 +44,7 @@ io.on('connection', socket => {
             var currentRoom = 'room'+rooms; 
             var user = joinUser(socket.id, nickname, currentRoom);
             socket.join(currentRoom);
-            console.log(nickname+' join '+currentRoom);
+            console.log("   [*] --> "+nickname+' join '+currentRoom);
             if(io.nsps['/'].adapter.rooms[currentRoom].length != 2)
             {
                 // alone in the room, waiting for opponent
@@ -73,7 +73,7 @@ io.on('connection', socket => {
             var currentRoom = 'room'+rooms;
             var user = joinUser(socket.id, nickname, currentRoom);
             socket.join(currentRoom);
-            console.log(nickname+' join '+currentRoom);
+            console.log("   [*] --> "+nickname+' join '+currentRoom);
             if(io.nsps['/'].adapter.rooms[currentRoom].length != 2)
             {
                 // alone in the room, waiting for opponent
@@ -124,6 +124,14 @@ io.on('connection', socket => {
         }
     });
 
-
+    // endpoint used when the game ended,
+    // so the player won't be connected
+    // anymore
+    socket.on('disconnect',() => {
+        // delete user from the array because
+        var user = getUserById(socket.id); 
+        deleteUser(socket.id);
+        console.log("[-] --> "+user.nickname+" leave the game.");
+    });
 });
 
