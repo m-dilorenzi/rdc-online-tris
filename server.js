@@ -120,7 +120,7 @@ io.on('connection', socket => {
             // player 1 or player 2 win
             socket.emit('showResult', result.nickname+", you win!");
             var user = getUserById(socket.id);
-            socket.broadcast.to(user.room).emit('showResult', "Game ended. "+result.nickname+" win!");
+            socket.broadcast.to(user.room).emit('showResult', "Game ended. "+result.nickname+" wins!");
         }
     });
 

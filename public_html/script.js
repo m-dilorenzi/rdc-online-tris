@@ -144,7 +144,7 @@ socket.on('updateTris', (cell) => {
 			if(player == 1)
 			{
 				document.images[18].src = "./../images/o.png";
-				trisTable[2][1] = "X";
+				trisTable[2][1] = "O";
 			}else
 			{
 				document.images[18].src = "./../images/x.png";
@@ -208,21 +208,6 @@ function initTrisTable()
 	}
 }
 
-function newGame()
-{
-	game_started = 1;
-	turn = 0
-	document.images[0].src = "./../images/quadrato-bianco.jpg"
-	document.images[2].src = "./../images/quadrato-bianco.jpg"
-	document.images[4].src = "./../images/quadrato-bianco.jpg"
-	document.images[8].src = "./../images/quadrato-bianco.jpg"
-	document.images[10].src = "./../images/quadrato-bianco.jpg"
-	document.images[12].src = "./../images/quadrato-bianco.jpg"
-	document.images[16].src = "./../images/quadrato-bianco.jpg"
-	document.images[18].src = "./../images/quadrato-bianco.jpg"
-	document.images[20].src = "./../images/quadrato-bianco.jpg"
-	initTrisTable();
-}
 
 function makeMove(row, column)
 {
@@ -238,8 +223,7 @@ function makeMove(row, column)
 					var move = {nickname: nickname, cell: 0};
 					socket.emit('moveDone', move);
 					turn++;
-					if(checkVictoryCondition() == 0)
-						updateTurnLabel();
+					updateTurnLabel();
 				}
 			}	
 				
@@ -579,7 +563,6 @@ function checkVictoryCondition()
 	{
 		winner = 2;
 	}
-
 	return winner;
 }
 

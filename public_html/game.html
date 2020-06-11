@@ -19,8 +19,8 @@
 
 	<body>
         <div class="container-fluid" style="min-height: 100vh">
-            <div class="row" style="background-color: gold; min-height: 100vh">
-                <div class="col-xs-6 col-sm-6" style="background-color: white; min-height: 100vh">
+            <div class="row" style="background-color: rgb(129, 129, 129); min-height: 100vh">
+                <div class="col-xs-5 col-sm-5" style="background-color: white; min-height: 100vh">
                     <div class="row align-items-center h-100">
                         <table align="center">
                             <tr>
@@ -61,16 +61,30 @@
                         </table>   
                     </div>                 
                 </div>
-                <div class="col-xs-6 col-sm-6" style="min-height: 100vh">
-                    <div class="row w-100 h-25" id="nicknameLabel" style="background-color: pink"></div>
-                    <div class="row w-100 h-25" id="informationLabel" style="background-color: blue"></div>
-                    <div class="row w-100 h-25" id="turnLabel"style="background-color: green"></div>
-                    <div class="row w-100 h-25" id="newGameLabel" style="background-color: darkorange">
+                <div class="col-xs-1 col-sm-1" style="min-height: 100vh"></div>
+                <div class="col-xs-5 col-sm-5 text-center" style="min-height: 100vh">
+                    <div class="row w-100 h-25 justify-content-center align-items-center" style="background-color: rgb(129, 129, 129)">
+                        <div class="w-100 justify-content-center align-items-center">
+                            <p class="display-4 text-light" id="nicknameLabel"></p>
+                        </div>
+                    </div>
+                    <div class="row w-100 h-25 text-center" style="background-color: rgb(129, 129, 129)">
                         <div class="text-center w-100">
-                            <a href="index.html" id="newGameButton" class="btn btn-outline-primary invisible">New game!</button>
+                            <p class="display-4" id="informationLabel"></p>
+                        </div>
+                    </div>
+                    <div class="row w-100 h-25 text-center" style="background-color: rgb(129, 129, 129)">
+                        <div class="text-center w-100">
+                            <p class="display-4 font-italic" id="turnLabel"></p>
+                        </div>
+                    </div>
+                    <div class="row w-100 h-25" id="newGameLabel" style="background-color: rgb(129, 129, 129)">
+                        <div class="text-center w-100">
+                            <a href="index.html" id="newGameButton" class="btn btn-primary btn-xl invisible">New game!</button>
                         </div>
                     </div>
                 </div>
+                <div class="col-xs-1 col-sm-1" style="min-height: 100vh"></div>
             </div>
         </div>
         
