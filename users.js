@@ -19,7 +19,12 @@ function getUserById(id) {
     return users.find(user => user.id == id);
 }
 
+// Get users from array by room
+function getUsersByRoom(room) {
+    return users.find(user => user.room == room);
+}
 
 exports.joinUser        = joinUser;
 exports.getUserById     = getUserById;
 exports.deleteUser      = deleteUser;
+exports.getUsersByRoom  = getUsersByRoom;

@@ -1,12 +1,14 @@
-// Requires external modules
+// Require external modules
 const express   = require('express');
 const http      = require('http');
 const socketio  = require('socket.io');
 
-// Requires internal modules
+// Require internal modules
 const joinUser          = require('./users.js').joinUser;
 const deleteUser        = require('./users.js').deleteUser;
 const getUserById       = require('./users.js').getUserById;
+const getUsersByRoom    = require('./users.js').getUsersByRoom;
+
 
 const app       = express();
 const server    = http.createServer(app);
@@ -26,7 +28,7 @@ app.use(express.static(`${__dirname}/public_html`));
 
 io.on('connection', socket => {
 
-    // endpoint used when a new make a connection
+    // endpoint used when a new user makes a connection
     // to the webserver
     socket.on('join', ({nickname}) => {
         console.log("[+] --> "+nickname+" joins game.");
@@ -97,7 +99,7 @@ io.on('connection', socket => {
         connectedUsers++;
     });
 
-    // endpoint used when one player make a move
+    // endpoint used when one player makes a move
     // notify to the other player of the room which
     // cell has to be updated
     socket.on('moveDone', (move) => {
@@ -108,7 +110,7 @@ io.on('connection', socket => {
     // endpoint used when the player who made
     // last move win the game or the game ended
     // in a draw
-    socket.on('result', (result) => {
+    socket.on('result', (result) => { 
         if(result.result == 0)
         {
             // draw
@@ -128,10 +130,33 @@ io.on('connection', socket => {
     // so the player won't be connected
     // anymore
     socket.on('disconnect',() => {
-        // delete user from the array because
+        // delete user from the array of connected users
         var user = getUserById(socket.id); 
         deleteUser(socket.id);
         console.log("[-] --> "+user.nickname+" leave the game.");
+
+        // disconnect also the other player of
+        // the room if he's connected
+        var room = user.room;
+        var opponentToDelete = getUsersByRoom(room);
+
+        if(opponentToDelete != undefined)
+        {
+            // notify the player that his opponent leave the game
+            var informationMessage = user.nickname + " left the game.";
+            socket.broadcast.to(opponentToDelete.room).emit('showResult', informationMessage);
+        }
+        connectedUsers--;
     });
 });
 
+/*
+
+       0  |  1  |  2
+     _____|_____|_____
+       3  |  4  |  5
+     _____|_____|_____    
+       6  |  7  |  8
+          |     |
+
+*/

@@ -29,16 +29,15 @@ function initGame()
 }
 
 // Used when a new user make the login with his nickname
-socket.emit('join', {nickname})
+socket.emit('join', {nickname});
 
-// Used when one opponent is alone in the room
+// Used when one player is alone in the room
 socket.on('information', informationMessage => {
 	// show and set the information label
-	// document.getElementById('informationLabel').style.display = "block";
 	document.getElementById('informationLabel').textContent = informationMessage;
 });
 
-// Used when in the room there are 2 player so the
+// Used when in the room there are 2 players and the
 // game can start
 socket.on('startGame', (startSignal) => {
 	
