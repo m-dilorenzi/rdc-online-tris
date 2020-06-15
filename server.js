@@ -2,6 +2,7 @@
 const express   = require('express');
 const http      = require('http');
 const socketio  = require('socket.io');
+const { connected } = require('process');
 
 // Require internal modules
 const joinUser          = require('./users.js').joinUser;
@@ -65,13 +66,15 @@ io.on('connection', socket => {
                 message = "Game started! Your opponent is "+nickname;
                 startSignal = {message: message, tplayer: 1, nickname: opponent, opponent: nickname};
                 socket.broadcast.to(currentRoom).emit('startGame', startSignal);
+
+                rooms++;
             }
 
         }else{
             // new room has to be created because there
             // aren't connected users yet or there is an
             // even number of users connected
-            rooms++;
+            // rooms++;
             var currentRoom = 'room'+rooms;
             var user = joinUser(socket.id, nickname, currentRoom);
             socket.join(currentRoom);
@@ -133,7 +136,7 @@ io.on('connection', socket => {
         // delete user from the array of connected users
         var user = getUserById(socket.id); 
         deleteUser(socket.id);
-        console.log("[-] --> "+user.nickname+" leave the game.");
+        console.log("[-] --> "+user.nickname+" leaves the game.");
 
         // disconnect also the other player of
         // the room if he's connected
